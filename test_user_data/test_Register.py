@@ -33,7 +33,7 @@ class testRegister(unittest.TestCase):
 		params = (
     		('token', '%s' %registerToken),
     		('client_secret', 'abcd'),
-   	 		('sid', '%s' %sid)
+   	 		('sid', '%s' %sid),
 		)
 		requestValidate = requests.post('https://%s.citadel.team/_matrix/identity/api/v1/validate/email/submitToken' %my_args[0], params=params)
 		self.assertIn("true",requestValidate.text)

@@ -2,6 +2,7 @@ import random
 import string
 import requests
 import urllib3
+import sys
 import unittest
 from attribute import getUsername
 
@@ -17,7 +18,7 @@ class testLogout(unittest.TestCase):
 		access_token = catFileData.split("\n")[0]
 
 		params = (
-    		('access_token', access_token)
+    			('access_token', access_token),
 		)
 
 		addr = 'https://%s.citadel.team/_matrix/client/' %my_args[0]
