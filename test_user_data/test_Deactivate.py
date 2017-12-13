@@ -1,8 +1,10 @@
 import requests
 import urllib3
 import unittest
-from test_Register import getAccesToken
-from attribute import getUsername,getAddr
+from attribute import getUsername
+
+my_args = sys.argv[1:]
+del sys.argv[1:]
 
 class testDesactivate(unittest.TestCase):
 
