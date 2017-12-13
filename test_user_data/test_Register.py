@@ -43,7 +43,6 @@ class testRegister(unittest.TestCase):
 		bodyEmail = (requestRegisterEmail.text).split('"')
 		sid = bodyEmail[5]
 		
-		domain = (test).split("-")
 		registerToken = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec sydent-container sqlite3 /opt/sydent/database/sydent.db 'select * from threepid_token_auths where validationSession=%s'\" | cut -d'|' -f3" %(infra,sid),shell=True).strip()
 		params = (
     		('token', '%s' %registerToken),
@@ -54,7 +53,7 @@ class testRegister(unittest.TestCase):
 		self.assertIn("true",requestValidate.text)
 
 		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(domain,sid,username)
-		requestRegisterUser = requests.post('https://%s.citadel.team/_matrix/client/r0/register' %test, headers=headers, data=dataRegisterUser, verify=True)
+		requestRegisterUser = requests.post('https://%s/_matrix/client/r0/register' %domain, headers=headers, data=dataRegisterUser, verify=True)
 		self.assertEquals(200,requestRegisterUser.status_code)
 		bodyUser = (requestRegisterUser.text).split("\"")
 		access_token = bodyUser[3]
