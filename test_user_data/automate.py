@@ -22,21 +22,21 @@ def run_test():
 			else:
 				print "\nThere is a mistakes somewhere : check if you right correctly the options or the name of the test_file, and if the test_file is in the end of the arguments ! \n"
 
-	if varAll == 1:
-		if test_file != "":
-			print "\nYou can't ask to execute one test if you select the options -a !\n"
-		else:
-			infra = raw_input("Write the name of your infra : ")
-			for test in os.listdir("."):
-				if test != "automate.py":
-					subprocess.call("python %s" %(test),shell=True)
+		if varAll == 1:
+			if test_file != "":
+				print "\nYou can't ask to execute one test if you select the options -a !\n"
+			else:
+				infra = raw_input("Write the name of your infra (Example: \"jla-test\") : ")
+				for test in os.listdir("."):
+					if test != "automate.py":
+						subprocess.call("python %s" %(test),shell=True)
 
-	else:
-		if test_file == "":
-			print "\nIf you didn't ask for running all tests, you have to write a test_file\n"
 		else:
-			infra = raw_input("Write the name of your infra : ")
-			subprocess.call("python %s %s %s" %(test_file,infra,verbose),shell=True)
+			if test_file == "":
+				print "\nIf you didn't ask for running all tests, you have to write a test_file\n"
+			else:
+				infra = raw_input("Write the name of your infra (Example: \"jla-test\") : ")
+				subprocess.call("python %s %s %s" %(test_file,infra,verbose),shell=True)
 
 
 if __name__ == '__main__':
