@@ -1,22 +1,36 @@
 #!/usr/bin/env bash
 
-if [ $# = 0 ]
+test_run=""
+verbose=0
+all=0
+
+if [ $# = 0 ];
 then
-	echo "Hello"
+	echo "Écrivez le nom de votre infra : "
+	read infra
+
 else
 	for arg in $@;
 	do
-		if[ $arg = "-v" ]
-then
-
-		fi
-
-		if[ $arg="-a" ]
+		if "$arg" = *"-"* ;
 		then
-			for f in *.py; 
-			do 
-				python "$f"; 
-			done
+			
+			if "$arg" = "-v" ;
+			then
+				verbose=1
+			fi
+
+			if  "$arg" = "-a" ;
+			then
+				all=1
+			fi
+
+		else
+			test_run=$arg
 		fi
 	done
 fi
+
+echo $verbose
+echo $all
+echo $test_run
