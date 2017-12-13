@@ -17,20 +17,21 @@ class testRegister(unittest.TestCase):
 	def test_Register(self):
 
 		headers = {
-    	'Content-Type': 'application/json',
-    	'Accept': 'application/json',
+ 	   		'Content-Type': 'application/json',
+    			'Accept': 'application/json',
 		}
 
 		addr = 'https://%s.citadel.team/_matrix/client/' %my_args[0]
 
-		dataRegister = '{"client_secret":"abcd","id_server":"%s-test.citadel.team","send_attempt":"1","email":"%s@outlook.fr","next_link":""}' %(my_args[0],getUsername())
+		dataRegister = '{"client_secret":"abcd","id_server":"%s.citadel.team","send_attempt":"1","email":"%s@outlook.fr","next_link":""}' %(my_args[0],getUsername())
 		requestRegister = requests.post('%sr0/register/email/requestToken' %addr, headers=headers, data=dataRegister)
-		self.assertEquals(403,requestRegister.status_code)
+		self.assertEquals(200,requestRegister.status_code)
 		
 		body = (requestRegister.text).split('"')
-		sid = body[2]
-
-		registerToken = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec sydent-container sqlite3 /opt/sydent/database/sydent.db 'select * from threepid_token_auths where validationSession=$%s'\" | cut -d'|' -f3" %(my_args[0],sid),shell=True)
+		sid = body[5]
+		
+		domain = (my_args[0]).split("-")
+		registerToken = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec sydent-container sqlite3 /opt/sydent/database/sydent.db 'select * from threepid_token_auths where validationSession=%s'\" | cut -d'|' -f3" %(domain[0],sid),shell=True)
 		params = (
     		('token', registerToken),
     		('client_secret', 'abcd'),

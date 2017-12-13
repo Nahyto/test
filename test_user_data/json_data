@@ -1,0 +1,16 @@
+{
+	"auth":
+			{
+				"type":"m.login.email.identity",
+				"threepid_creds":
+							{
+								"id_server":"nsc-test.citadel.team",
+								"sid":"13",
+								"client_secret":"abcd"
+							}
+			},
+	"bind_email":true,
+	"password":"Devinemoi_01",
+	"username":"Jean59147",
+	"guest_access_token":null
+}
