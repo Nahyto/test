@@ -10,12 +10,10 @@ from attribute import getUsername
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 my_args = sys.argv[1:]
 del sys.argv[1:]
-access_token = ""
-
+access_token = "lol"
 class testRegister(unittest.TestCase):
 
 	def test_Register(self):
-		global access_token
 
 		headers = {
  	   		'Content-Type': 'application/json',
@@ -43,11 +41,11 @@ class testRegister(unittest.TestCase):
 		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s.citadel.team","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(my_args[0],sid,getUsername())
 		requestRegisterUser = requests.post('https://%s.citadel.team/_matrix/client/r0/register' %my_args[0], headers=headers, data=dataRegisterUser, verify=True)
 		self.assertEquals(200,requestRegisterUser.status_code)
-
-		bodyUser = (requestRegisterUser).split("\"")
-		access_token = body[2]
-		print access_token
-		
+		bodyUser = (requestRegisterUser.text).split("\"")
+		access_token = bodyUser[3]
+		fileAccessToken = open("fileAccessToken.txt","w")
+		fileAccessToken.write(access_token)
+		fileAccessToken.close()
 		print "\ntest_Register : \n\nRegister for an account on this homeserver.\nThere are two kinds of user account:\n    -user accounts. These accounts may use the full API described in this specification. \n    -guest accounts. These accounts may have limited permissions and may not be supported by all servers."
 		if my_args[1] == '1':
 			print "\nResponse server :\n%s\n" %requestRegisterUser.text

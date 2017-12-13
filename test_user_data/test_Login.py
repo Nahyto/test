@@ -4,8 +4,6 @@ import requests
 import urllib3
 import unittest
 import sys
-from test_Register import getAccesToken
-from attribute import getUsername,getAddr
 
 
 class testLogin(unittest.TestCase):

@@ -1,5 +1,5 @@
 import subprocess
 import sys
+from test_Register import getAccessToken
 
-test = subprocess.check_output(["ls -l"],shell=True)
-print test
+print getAccessToken()
