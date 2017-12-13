@@ -5,7 +5,7 @@ import subprocess
 def run_test():
 	verbose = 0
 	varAll = 0
-	test_file = ""
+	test_file = []
 	infra = ""
 
 	if len(sys.argv) == 1:
@@ -17,13 +17,13 @@ def run_test():
 				verbose = 1
 			elif args == "-a":
 				varAll = 1
-			elif args.endswith(".py") and args == sys.argv[len(sys.argv)-1]:
-				test_file = args
+			elif args.endswith(".py"):
+				test_file.append(args)
 			else:
 				print "\nThere is a mistakes somewhere : check if you right correctly the options or the name of the test_file, and if the test_file is in the end of the arguments ! \n"
 
 		if varAll == 1:
-			if test_file != "":
+			if len(test_file) != 0:
 				print "\nYou can't ask to execute one test if you select the options -a !\n"
 			else:
 				infra = raw_input("Write the name of your infra (Example: \"jla-test\") : ")
@@ -32,11 +32,12 @@ def run_test():
 						subprocess.call("python %s" %(test),shell=True)
 
 		else:
-			if test_file == "":
+			if len(test_file) == 0:
 				print "\nIf you didn't ask for running all tests, you have to write a test_file\n"
 			else:
 				infra = raw_input("Write the name of your infra (Example: \"jla-test\") : ")
-				subprocess.call("python %s %s %s" %(test_file,infra,verbose),shell=True)
+				for test in test_file:
+					subprocess.call("python %s %s %s" %(test,infra,verbose),shell=True)
 
 
 if __name__ == '__main__':
