@@ -24,11 +24,11 @@ class testLogin(unittest.TestCase):
 		requestLogin = requests.post('%sr0/login' %addr, data=dataLogin, verify=True)
 		self.assertEquals(200,requestLogin.status_code)
 
-		fileDataWrite = open("fileLoginToken.txt",w)
-		body = (requestDeactivate.text).split(":")
+		fileDataWrite = open("fileLoginToken.txt","w")
+		body = (requestLogin.text).split("\"")
 		fileDataWrite.write(body[3])
+		fileDataWrite.write("\n")
 		fileDataWrite.write(user)
-		print body[3]
 		print "\ntest_Login : \n\nVerify if the user can login in this homeserver"
 
 if __name__ == '__main__':
