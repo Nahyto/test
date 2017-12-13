@@ -12,8 +12,6 @@ del sys.argv[1:]
 class testLogin(unittest.TestCase):
 
 	def test_Login(self):
-
-		urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 		fileData = open("fileAccessToken.txt","r")
 		catFileData = fileData.read()
 		access_token = catFileData.split("\n")[0]

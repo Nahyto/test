@@ -13,12 +13,18 @@ class testDesactivate(unittest.TestCase):
     		'Accept': 'application/json',
 		}
 
+		fileData = open("fileAccessToken.txt","r")
+		catFileData = fileData.read()
+		access_token = catFileData.split("\n")[0]
+		user = catFileData.split("\n")[1]
+
 		params = (
-    		('access_token', getAccesToken()),
+    		('access_token', access_token),
 		)
 
-		dataDeactivate = '{"auth": {"user":"%s","password":"devine","session":"bidule","type": "m.login.password"}}' % getUsername()
-		requestDeactivate = requests.post('%sr0/account/deactivate' %getAddr(), headers=headers, params=params, data=dataDeactivate, verify=False)
+		addr = 'https://%s.citadel.team/_matrix/client/' %my_args[0]
+		dataDeactivate = '{"auth": {"user":"%s","password":"Devinemoi_01","session":"bidule","type": "m.login.password"}}' % user
+		requestDeactivate = requests.post('%sr0/account/deactivate' %addr, headers=headers, params=params, data=dataDeactivate, verify=True)
 		self.assertEquals(200,requestDeactivate.status_code)
 		print "\ntest_Desactivate : \n\nDeactivate the user's account, removing all ability for the user to login again."
 
