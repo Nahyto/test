@@ -1,6 +1,7 @@
 import requests
 import urllib3
 import unittest
+import sys
 from attribute import getUsername
 
 my_args = sys.argv[1:]
@@ -15,8 +16,8 @@ class testDesactivate(unittest.TestCase):
     		'Accept': 'application/json',
 		}
 
-		fileData = open("fileAccessToken.txt","r")
-		catFileData = fileData.read()
+		fileDataRead = open("fileLoginToken.txt","r")
+		catFileData = fileDataRead.read()
 		access_token = catFileData.split("\n")[0]
 		user = catFileData.split("\n")[1]
 
