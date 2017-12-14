@@ -6,26 +6,39 @@ import unittest
 import sys
 import subprocess
 from attribute import *
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class testRegister(unittest.TestCase):
 
-	def test_Register(self):
+
+	def test_Register_Email(self):
+		global requestRegisterEmail
+
 		dataRegisterEmail = '{"client_secret":"abcd","id_server":"%s","send_attempt":"1","email":"%s","next_link":""}' %(getDomain(),getEmail())
+
 		requestRegisterEmail = requests.post('%sclient/r0/register/email/requestToken' %getAddr(), headers=getHeader(), data=dataRegisterEmail)
+
 		self.assertEquals(200,requestRegisterEmail.status_code)
+
+	def test_Validate_Email(self):
+		global sid
+		
 		bodyEmail = (requestRegisterEmail.text).split('"')
 		sid = bodyEmail[5]
+
 		registerToken = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec sydent-container sqlite3 /opt/sydent/database/sydent.db 'select * from threepid_token_auths where validationSession=%s'\" | cut -d'|' -f3" %(getInfra(),sid),shell=True).strip()
+		
 		params = (
     		('token', registerToken),
     		('client_secret', 'abcd'),
    	 		('sid', sid),
 		)
+
 		requestValidate = requests.post('https://%sidentity/api/v1/validate/email/submitToken' %getAddr(), params=params)
+
 		self.assertIn("true",requestValidate.text)
 
-		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(domain,sid,username)
+	def test_Register_User(self):
+		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(getDomain(),sid,getUsername())
 		requestRegisterUser = requests.post('https://%s/_matrix/client/r0/register' %domain, headers=headers, data=dataRegisterUser, verify=True)
 		self.assertEquals(200,requestRegisterUser.status_code)
 		bodyUser = (requestRegisterUser.text).split("\"")

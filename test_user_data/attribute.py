@@ -3,6 +3,7 @@ my_args = sys.argv[1:]
 del sys.argv[1:]
 
 def initList():
+
 	listInitVar = []
 	verbose = 0
 	email = ""
@@ -10,6 +11,8 @@ def initList():
 	infra = ""
 	username = ""
 	addr = ""
+	access_token = ""
+	login_token = ""
 	headers = {
  	'Content-Type': 'application/json',
  	'Accept': 'application/json',
@@ -64,3 +67,15 @@ def getAddr():
 
 def getHeader():
 	return listArguments[6]
+
+def setAccessToken(access_token):
+	listArguments[7] = access_token
+
+def getAccessToken():
+	return listArguments[7]
+
+def setLoginToken(login_token):
+	listArguments[8] = login_token
+
+def getLoginToken():
+	return listArguments[8]

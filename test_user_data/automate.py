@@ -2,53 +2,58 @@ import os, sys
 import subprocess
 from pathlib import Path
 
-def run_test():
 
-	attribut_file = Path("./attribute.py")
+def run_test():
 
 	if len(sys.argv) == 1:
 		welcomeText()
 		return 1
 	
 	elif len(sys.argv) > 1:
-		listArguments = checkArguments(initList())
+		run_bash_command(checkArguments(initList()))
 
-		if listArguments[1] == 1:
 
-			if len(listArguments[2]) != 0:
-				print "\n\033[1;32;31mYou can't ask to execute one test if you select the options \033[1;32;33m-a \033[1;32;31m!\033[1;32;m\n"
-				return 0
+def run_bash_command(listArguments):
+	
+	attribut_file = Path("./attribute.py")
 
-			else:
-				listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
-				listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
+	if listArguments[1] == 1:
 
-				for test in os.listdir("."):
-
-					if test != "automate.py":
-						subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
-						return 1
+		if len(listArguments[2]) != 0:
+			print "\n\033[1;32;31mYou can't ask to execute one test if you select the options \033[1;32;33m-a \033[1;32;31m!\033[1;32;m\n"
+			return 0
 
 		else:
+			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
+			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
 
-			if attribut_file.exists():
-				subprocess.call("python attribute.py %s %s %s" %(listArguments[0],listArguments[3],listArguments[4]),shell=True)
+			for test in os.listdir("."):
 
-			else:
-				print "\n\033[1;32;31mThe file \033[1;32;33m\"attribute.py\"\033[1;32;31m is needed for the automate, check if he is in the directory with the others tests !"
-				return 0
+				if test != "automate.py":
+					subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
+					return 1
 
-			if len(listArguments[2]) == 0:
-				print "\n\033[1;32;31mIf you didn't ask for running all tests, you have to write a test_file !\033[1;32;m\n"
-				return 0
+	else:
 
-			else:
-				listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
-				listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
+		if attribut_file.exists():
+			subprocess.call("python attribute.py %s %s %s" %(listArguments[0],listArguments[3],listArguments[4]),shell=True)
 
-				for test in listArguments[2]:
-					subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
-				return 1
+		else:
+			print "\n\033[1;32;31mThe file \033[1;32;33m\"attribute.py\"\033[1;32;31m is needed for the automate, check if he is in the directory with the others tests !"
+			return 0
+
+		if len(listArguments[2]) == 0:
+			print "\n\033[1;32;31mIf you didn't ask for running all tests, you have to write a test_file !\033[1;32;m\n"
+			return 0
+
+		else:
+			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
+			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
+
+			for test in listArguments[2]:
+				subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
+			return 1		
+
 
 def welcomeText():
 
@@ -57,6 +62,7 @@ def welcomeText():
 	print "   \033[1;32;33m-v [Name of your test] :\033[0;32;m With that you can see the body response from the server"
 	print "   \033[1;32;33m-a :\033[0;32;m With this you can run all tests\nIf you want to run one particular test, just write \"\033[1;32;33mpython automate.py --options [Name of your test]\033[0;32;m\"."
 	print "\033[1;32;40mEnjoy !\033[0;32;m  \n"
+
 
 def initList():
 	verbose = 0
@@ -72,6 +78,7 @@ def initList():
 	listInitArgs.append(domain)
 
 	return listInitArgs
+
 
 def checkArguments(listInitArgs):
 
