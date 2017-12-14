@@ -14,7 +14,7 @@ def run_test():
 
 
 def run_bash_command(listArguments):
-	
+
 	attribut_file = Path("./attribute.py")
 
 	if listArguments[1] == 1:
@@ -27,11 +27,15 @@ def run_bash_command(listArguments):
 			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
 			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
 
-			for test in os.listdir("."):
+			if listArguments[4] == "NOK":
+				return 0
 
-				if test != "automate.py":
-					subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
-					return 1
+			else:
+				for test in os.listdir("."):
+
+					if test != "automate.py":
+						subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
+						return 1
 
 	else:
 
@@ -50,9 +54,13 @@ def run_bash_command(listArguments):
 			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
 			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
 
-			for test in listArguments[2]:
-				subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
-			return 1		
+			if listArguments[4] == "NOK":
+				return 0
+
+			else:
+				for test in listArguments[2]:
+					subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
+				return 1		
 
 
 def welcomeText():
