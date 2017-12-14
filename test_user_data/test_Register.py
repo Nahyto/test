@@ -27,7 +27,7 @@ class testRegister(unittest.TestCase):
 			email = my_args[0]
 			domain = my_args[1]
 
-		infra = domain.split(".")[0]
+		infra = (domain.split(".")[0]).split("-")[0]
 		username = email.split("@")[0]
 
 		headers = {
@@ -42,7 +42,6 @@ class testRegister(unittest.TestCase):
 		self.assertEquals(200,requestRegisterEmail.status_code)
 		bodyEmail = (requestRegisterEmail.text).split('"')
 		sid = bodyEmail[5]
-		
 		registerToken = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec sydent-container sqlite3 /opt/sydent/database/sydent.db 'select * from threepid_token_auths where validationSession=%s'\" | cut -d'|' -f3" %(infra,sid),shell=True).strip()
 		params = (
     		('token', '%s' %registerToken),
