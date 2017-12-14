@@ -5,14 +5,13 @@ from pathlib import Path
 def run_test():
 
 	attribut_file = Path("./attribute.py")
-	listArguments = initList()
 
 	if len(sys.argv) == 1:
 		welcomeText()
 		return 1
 	
 	elif len(sys.argv) > 1:
-		listArguments = checkArguments(listArguments)
+		listArguments = checkArguments(initList())
 
 		if listArguments[1] == 1:
 
@@ -33,7 +32,7 @@ def run_test():
 		else:
 
 			if attribut_file.exists():
-				subprocess.call("python attribute.py %s %s %s" %(listArguments[3],listArguments[0],listArguments[4]),shell=True)
+				subprocess.call("python attribute.py %s %s %s" %(listArguments[0],listArguments[3],listArguments[4]),shell=True)
 
 			else:
 				print "\n\033[1;32;31mThe file \033[1;32;33m\"attribute.py\"\033[1;32;31m is needed for the automate, check if he is in the directory with the others tests !"
@@ -48,7 +47,7 @@ def run_test():
 				listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
 
 				for test in listArguments[2]:
-					subprocess.call("python %s %s %s %s" %(test,listArguments[3],listArguments[0],listArguments[4]),shell=True)
+					subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
 				return 1
 
 def welcomeText():
@@ -74,23 +73,23 @@ def initList():
 
 	return listInitArgs
 
-def checkArguments(listResponsesArgs):
+def checkArguments(listInitArgs):
 
 	for args in sys.argv[1:]:
 
 		if args == "-v":
-			listResponsesArgs[0] = 1
+			listInitArgs[0] = 1
 
 		elif args == "-a":
-			listResponsesArgs[1] = 1
+			listInitArgs[1] = 1
 
 		elif args.endswith(".py"):
-			listResponsesArgs[2].append(args)
+			listInitArgs[2].append(args)
 
 		else:
 			print "\nThere is a mistakes somewhere : check if you right correctly the options or the name of the \033[1;32;33mtest_file \033[0;32;m! \n"
 
-	return listResponsesArgs
+	return listInitArgs
 
 
 if __name__ == '__main__':

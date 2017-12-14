@@ -1,46 +1,66 @@
-
 import sys
 my_args = sys.argv[1:]
 del sys.argv[1:]
 
-__verbose = ""
-__email = ""
-__domain = ""
-
-if len(my_args) == 3:
-	__verbose = my_args[1]
-	__email = my_args[0]
-	__domain = my_args[2]
-
-elif len(my_args) == 2:
-	__email = my_args[0]
-	__domain = my_args[1]
-
-__infra = (__domain.split(".")[0]).split("-")[0]
-__username = __email.split("@")[0]
-__addr = 'https://%s/_matrix/' %__domain
-__headers = {
+def initList():
+	listInitVar = []
+	verbose = 0
+	email = ""
+	domain = ""
+	infra = ""
+	username = ""
+	addr = ""
+	headers = {
  	'Content-Type': 'application/json',
  	'Accept': 'application/json',
-}
+	}
+
+	listInitVar.append(verbose)
+	listInitVar.append(email)
+	listInitVar.append(domain)
+	listInitVar.append(infra)
+	listInitVar.append(username)
+	listInitVar.append(addr)
+	listInitVar.append(headers)
+	
+	return listInitVar
+
+def instantiateList(listInitVar):
+
+	if len(my_args) == 3:
+		listInitVar[0] = my_args[0]
+		listInitVar[1] = my_args[1]
+		listInitVar[2] = my_args[2]
+
+	elif len(my_args) == 2:
+		listInitVar[1] = my_args[1]
+		listInitVar[2] = my_args[2]
+
+	listInitVar[3] = (listInitVar[2].split(".")[0]).split("-")[0]
+	listInitVar[4] = listInitVar[1].split("@")[0]
+	listInitVar[5] = 'https://%s/_matrix/' %listInitVar[2]
+
+	return listInitVar 
+
+listArguments = instantiateList(initList())
 
 def getVerbose():
-	return __verbose
+	return listArguments[0]
 
 def getEmail():
-	return __email
+	return listArguments[1]
 
 def getDomain():
-	return __domain
+	return listArguments[2]
 
 def getInfra():
-	return __infra
+	return listArguments[3]
 
 def getUsername():
-	return __username
+	return listArguments[4]
 
 def getAddr():
-	return __addr
+	return listArguments[5]
 
 def getHeader():
-	return __headers
+	return listArguments[6]
