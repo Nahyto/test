@@ -59,7 +59,6 @@ class testRegister(unittest.TestCase):
 
 		fileAccessToken = open("fileAccessToken.txt","w")
 		fileAccessToken.write(access_token)
-		fileAccessToken.write("\n%s" %username)
 		fileAccessToken.close()
 
 		print "\ntest_Register : \n\nRegister for an account on this homeserver.\nThere are two kinds of user account:\n    -user accounts. These accounts may use the full API described in this specification. \n    -guest accounts. These accounts may have limited permissions and may not be supported by all servers."
