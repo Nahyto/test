@@ -25,6 +25,8 @@ def initList():
 	listInitVar.append(username)
 	listInitVar.append(addr)
 	listInitVar.append(headers)
+	listInitVar.append(access_token)
+	listInitVar.append(login_token)
 	
 	return listInitVar
 
