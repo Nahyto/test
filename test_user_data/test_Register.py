@@ -21,7 +21,7 @@ class testRegister(unittest.TestCase):
 
 	def test_Validate_Email(self):
 		global sid
-		
+
 		bodyEmail = (requestRegisterEmail.text).split('"')
 		sid = bodyEmail[5]
 
@@ -33,13 +33,13 @@ class testRegister(unittest.TestCase):
    	 		('sid', sid),
 		)
 
-		requestValidate = requests.post('https://%sidentity/api/v1/validate/email/submitToken' %getAddr(), params=params)
+		requestValidate = requests.post('%sidentity/api/v1/validate/email/submitToken' %getAddr(), params=params)
 
 		self.assertIn("true",requestValidate.text)
 
 	def test_Register_User(self):
 		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(getDomain(),sid,getUsername())
-		requestRegisterUser = requests.post('https://%s/_matrix/client/r0/register' %domain, headers=headers, data=dataRegisterUser, verify=True)
+		requestRegisterUser = requests.post('%s/_matrix/client/r0/register' %getAddr(), headers=headers, data=dataRegisterUser, verify=True)
 		self.assertEquals(200,requestRegisterUser.status_code)
 		bodyUser = (requestRegisterUser.text).split("\"")
 		access_token = bodyUser[3]
