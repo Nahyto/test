@@ -24,10 +24,11 @@ def run_bash_command(listArguments):
 			return 0
 
 		else:
-			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
+			listArguments[3] = raw_input("\n\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
 			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
 
-			if listArguments[4] == "NOK":
+			if listArguments[4] == "NOK\n":
+				print "\n\033[1;32;31mYou right an email with a wrong domain name !\n\033[1;32;m"
 				return 0
 
 			else:
@@ -51,10 +52,11 @@ def run_bash_command(listArguments):
 			return 0
 
 		else:
-			listArguments[3] = raw_input("\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
+			listArguments[3] = raw_input("\n\033[1;32;40mWrite your email\033[1;32;m (\033[1;32;33mExample: \033[1;32;m\"somebody@something.com\") : ")
 			listArguments[4] = subprocess.check_output("./get_domain.sh %s" %listArguments[3],shell=True)
-
-			if listArguments[4] == "NOK":
+			
+			if listArguments[4] == "NOK\n":
+				print "\n\033[1;32;31mYou right an email with a wrong domain name !\n\033[1;32;m"
 				return 0
 
 			else:
