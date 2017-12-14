@@ -6,6 +6,7 @@ import unittest
 import sys
 import subprocess
 from attribute import *
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class testRegister(unittest.TestCase):
 
