@@ -12,13 +12,11 @@ class testLogin(unittest.TestCase):
 
 		params = (
 
- 			('access_token', getAccessToken()),	
+ 			('access_token', access_token),	
 		
 		)
-
 		dataLogin = '{"type":"m.login.password","user":"%s","password":"Devinemoi_01"}' % getUsername()
 		requestLogin = requests.post('%sr0/login' %getAddr(), data=dataLogin, verify=True)
-
 
 		self.assertEquals(200,requestLogin.status_code)
 

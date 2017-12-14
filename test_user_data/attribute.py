@@ -25,8 +25,6 @@ def initList():
 	listInitVar.append(username)
 	listInitVar.append(addr)
 	listInitVar.append(headers)
-	listInitVar.append(access_token)
-	listInitVar.append(login_token)
 	
 	return listInitVar
 
@@ -69,15 +67,3 @@ def getAddr():
 
 def getHeader():
 	return listArguments[6]
-
-def setAccessToken(access_token):
-	listArguments[7] = access_token
-
-def getAccessToken():
-	return listArguments[7]
-
-def setLoginToken(login_token):
-	listArguments[8] = login_token
-
-def getLoginToken():
-	return listArguments[8]
