@@ -19,6 +19,21 @@ class testRegister(unittest.TestCase):
 
 		self.assertEquals(200,requestRegisterEmail.status_code)
 
+	def test_Register_User(self):
+		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(getDomain(),sid,getUsername())
+		requestRegisterUser = requests.post('%s/_matrix/client/r0/register' %getAddr(), headers=headers, data=dataRegisterUser, verify=True)
+		self.assertEquals(200,requestRegisterUser.status_code)
+		bodyUser = (requestRegisterUser.text).split("\"")
+		access_token = bodyUser[3]
+
+		fileAccessToken = open("fileAccessToken.txt","w")
+		fileAccessToken.write(access_token)
+		fileAccessToken.close()
+
+		print "\ntest_Register : \n\nRegister for an account on this homeserver.\nThere are two kinds of user account:\n    -user accounts. These accounts may use the full API described in this specification. \n    -guest accounts. These accounts may have limited permissions and may not be supported by all servers."
+		if getVerbose() == '1':
+			print "\nResponse server :\n%s\n" %requestRegisterUser.text
+
 	def test_Validate_Email(self):
 		global sid
 
@@ -36,21 +51,6 @@ class testRegister(unittest.TestCase):
 		requestValidate = requests.post('%sidentity/api/v1/validate/email/submitToken' %getAddr(), params=params)
 
 		self.assertIn("true",requestValidate.text)
-
-	def test_Register_User(self):
-		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(getDomain(),sid,getUsername())
-		requestRegisterUser = requests.post('%s/_matrix/client/r0/register' %getAddr(), headers=headers, data=dataRegisterUser, verify=True)
-		self.assertEquals(200,requestRegisterUser.status_code)
-		bodyUser = (requestRegisterUser.text).split("\"")
-		access_token = bodyUser[3]
-
-		fileAccessToken = open("fileAccessToken.txt","w")
-		fileAccessToken.write(access_token)
-		fileAccessToken.close()
-
-		print "\ntest_Register : \n\nRegister for an account on this homeserver.\nThere are two kinds of user account:\n    -user accounts. These accounts may use the full API described in this specification. \n    -guest accounts. These accounts may have limited permissions and may not be supported by all servers."
-		if getVerbose() == '1':
-			print "\nResponse server :\n%s\n" %requestRegisterUser.text
 
 
 if __name__ == '__main__':
