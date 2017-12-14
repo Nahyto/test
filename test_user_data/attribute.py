@@ -1,4 +1,5 @@
 import sys
+import subprocess
 my_args = sys.argv[1:]
 del sys.argv[1:]
 
@@ -13,6 +14,7 @@ def initList():
 	addr = ""
 	access_token = ""
 	login_token = ""
+	user_id = ""
 	headers = {
  	'Content-Type': 'application/json',
  	'Accept': 'application/json',
@@ -25,7 +27,8 @@ def initList():
 	listInitVar.append(username)
 	listInitVar.append(addr)
 	listInitVar.append(headers)
-	
+	listInitVar.append(user_id)
+
 	return listInitVar
 
 def instantiateList(listInitVar):
@@ -42,6 +45,7 @@ def instantiateList(listInitVar):
 	listInitVar[3] = (listInitVar[2].split(".")[0]).split("-")[0]
 	listInitVar[4] = listInitVar[1].split("@")[0]
 	listInitVar[5] = 'https://%s/_matrix/' %listInitVar[2]
+	listInitVar[7] = subprocess.check_output()
 
 	return listInitVar 
 
@@ -67,3 +71,6 @@ def getAddr():
 
 def getHeader():
 	return listArguments[6]
+
+def getUserId():
+	return listArguments[7]
