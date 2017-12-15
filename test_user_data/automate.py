@@ -36,6 +36,7 @@ def run_bash_command(listArguments):
 
 					if test != "automate.py":
 						subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
+						os.remove("AccessToken.txt")
 						return 1
 
 	else:
@@ -62,6 +63,7 @@ def run_bash_command(listArguments):
 			else:
 				for test in listArguments[2]:
 					subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
+					os.remove("AccessToken.txt")
 				return 1		
 
 

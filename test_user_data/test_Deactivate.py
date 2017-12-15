@@ -2,7 +2,7 @@ import requests
 import urllib3
 import unittest
 import sys
-from attribut import *
+from attribute import *
 
 
 class testDesactivate(unittest.TestCase):
