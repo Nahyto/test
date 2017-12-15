@@ -1,5 +1,6 @@
 import sys
 import subprocess
+from pathlib import Path
 my_args = sys.argv[1:]
 del sys.argv[1:]
 
@@ -15,10 +16,16 @@ def initList():
 	access_token = ""
 	login_token = ""
 	user_id = ""
+	access_token = ""
 	headers = {
  	'Content-Type': 'application/json',
  	'Accept': 'application/json',
 	}
+	fileAccessToken = Path("./AccessToken.txt")
+	
+	if fileAccessToken.exists():
+		fileData = open("AccessToken.txt","r")
+		access_token = catFileData.split("\n")[0]
 
 	listInitVar.append(verbose)
 	listInitVar.append(email)
@@ -28,6 +35,7 @@ def initList():
 	listInitVar.append(addr)
 	listInitVar.append(headers)
 	listInitVar.append(user_id)
+	listInitVar.append(access_token)
 
 	return listInitVar
 
@@ -73,3 +81,6 @@ def getHeader():
 
 def getUserId():
 	return listArguments[7]
+
+def getAccessToken():
+	return listArguments[8]
