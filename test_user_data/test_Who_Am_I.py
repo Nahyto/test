@@ -1,25 +1,26 @@
 import requests
 import urllib3
 import unittest
-from test_Register import getAccesToken
-from attribute import getUsername,getAddr
+from attribute import *
 
 class testWhoAmI(unittest.TestCase):
 
 	def test_Who_Am_I(self):
 
-		headers = {
-   			'Content-Type': 'application/json',
-    		'Accept': 'application/json',
-		}
-
 		params = (
     		('access_token', getAccesToken()),
 		)
 
-		requestWhoAmI = requests.get('%sr0/account/whoami' %getAddr(), headers=headers, params=params, verify=False)
+		requestWhoAmI = requests.get('%sclient/r0/account/whoami' %getAddr(), headers=getHeader(), params=params, verify=False)
+
+		if getVerbose() == '1':
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestWhoAmI.text
+
+
 		self.assertEquals(200,requestWhoAmI.status_code)
-		print "\ntest_Who_Am_I : \n\nGets information about the owner of a given access token."
+		
 
 if __name__ == '__main__':
+	print "\n\n\033[1;32;40mtest_Who_Am_I : \033[1;32;m\n"
+	print "Gets information about the owner of a given access token.\n\n"
 	unittest.main()

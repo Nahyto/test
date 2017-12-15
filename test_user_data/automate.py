@@ -32,7 +32,7 @@ def run_bash_command(listArguments):
 				return 0
 
 			else:
-				listArguments[2] = ["test_Version.py","test_Register.py","test_Login.py","test_Logout.py","test_Login.py","test_Deactivate.py"]
+				listArguments[2] = ["test_Version.py","test_Register.py","test_Login.py","test_Who_Am_I.py","test_Logout.py","test_Login.py","test_Deactivate.py"]
 				
 				for test in listArguments[2]:
 			
