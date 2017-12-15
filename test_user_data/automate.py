@@ -32,12 +32,25 @@ def run_bash_command(listArguments):
 				return 0
 
 			else:
-				for test in os.listdir("."):
+				listArguments[2] = ["test_Version.py","test_Login.py","test_Logout.py","test_Login.py","test_Deactivate.py"]
+				
+				for test in listArguments[2]:
+			
+					if attribut_file.exists():
+                       				print listArguments[0]
+						print listArguments[3]
+						print listArguments[4]
+						subprocess.call("python attribute.py %s %s %s %s " %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
 
-					if test != "automate.py":
-						subprocess.call("python %s %s %s" %(test,listArguments[3],listArguments[4]),shell=True)
-						os.remove("AccessToken.txt")
-						return 1
+					else:
+						print "\n\033[1;32;31mThe file \033[1;32;33m\"attribute.py\"\033[1;32;31m is needed for the automate, check if he is in the directory with the others tests !"
+                        			return 0
+				
+				try:
+    					os.remove("AccessToken.txt")
+				except OSError:
+					pass
+				return 1
 
 	else:
 
@@ -63,8 +76,11 @@ def run_bash_command(listArguments):
 			else:
 				for test in listArguments[2]:
 					subprocess.call("python %s %s %s %s" %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
-					os.remove("AccessToken.txt")
-				return 1		
+				try:
+                                        os.remove("AccessToken.txt")
+                                except OSError:
+                                        pass
+				return 1
 
 
 def welcomeText():

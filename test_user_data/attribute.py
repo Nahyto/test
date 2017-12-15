@@ -25,6 +25,7 @@ def initList():
 	
 	if fileAccessToken.exists():
 		fileData = open("AccessToken.txt","r")
+		catFileData = fileData.read()
 		access_token = catFileData.split("\n")[0]
 
 	listInitVar.append(verbose)
@@ -40,7 +41,7 @@ def initList():
 	return listInitVar
 
 def instantiateList(listInitVar):
-
+	
 	if len(my_args) == 3:
 		listInitVar[0] = my_args[0]
 		listInitVar[1] = my_args[1]
