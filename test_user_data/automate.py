@@ -111,4 +111,3 @@ def checkArguments(listInitArgs):
 
 if __name__ == '__main__':
 	run_test()
-	wait()

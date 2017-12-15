@@ -60,10 +60,7 @@ class testRegister(unittest.TestCase):
 
 		self.assertEquals(200,requestRegisterUser.status_code)
 		
-		bodyUser = (requestRegisterUser.text).split("\"")
-		access_token = bodyUser[3]
-
-		setAccessToken(access_token)
+		
 
 
 

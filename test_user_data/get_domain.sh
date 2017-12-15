@@ -1,7 +1,5 @@
 #!/bin/bash
 
-date=$(date +%Y%m%d)
-
 
 data=$(curl 'https://ptl-test.citadel.team/api/get_domain.php?email='$1)
 if [ $data = null ]; then
