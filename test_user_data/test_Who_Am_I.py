@@ -8,10 +8,10 @@ class testWhoAmI(unittest.TestCase):
 	def test_Who_Am_I(self):
 
 		params = (
-    		('access_token', getAccesToken()),
+    		('access_token', getAccessToken()),
 		)
 
-		requestWhoAmI = requests.get('%sclient/r0/account/whoami' %getAddr(), headers=getHeader(), params=params, verify=False)
+		requestWhoAmI = requests.get('%sclient/r0/account/whoami' %getAddr(), headers=getHeader(), params=params, verify=True)
 
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestWhoAmI.text
