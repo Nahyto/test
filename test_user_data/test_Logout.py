@@ -19,6 +19,6 @@ class testLogout(unittest.TestCase):
 		
 
 if __name__ == '__main__':
-	print "\ntest_Logout: \n"
+	print "\n\n\033[1;32;40mtest_Logout: \n\n\033[1;32;m"
 	print "Verify if the user can Logout from this homeserver."
 	unittest.main()
