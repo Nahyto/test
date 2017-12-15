@@ -20,5 +20,5 @@ class testDesactivate(unittest.TestCase):
 
 if __name__ == '__main__':
 	print "\n\n\033[1;32;40mtest_Desactivate : \n\n\033[1;32;m"
-	print "Deactivate the user's account, removing all ability for the user to login again."
+	print "Deactivate the user's account, removing all ability for the user to login again.\n\n"
 	unittest.main()

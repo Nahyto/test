@@ -13,9 +13,10 @@ class testVersion(unittest.TestCase):
 		r = requests.get('%sclient/versions' %getAddr(), verify=True)
 		self.assertIn(version,r.text)
 		self.assertEquals(200,r.status_code)
-		print "\ntest_Version: \n\nVerify if the versions of this homeserver is r0.2.0"
 		if my_args[1] == '1':
 			print "\nResponse server :\n%s\n" %r.text
 
 if __name__ == '__main__':
+	print "\n\033[1;32;40mtest_Version: \033[1;32;m\n"
+	print "Verify if the versions of this homeserver is r0.2.0\n\n"
 	unittest.main()

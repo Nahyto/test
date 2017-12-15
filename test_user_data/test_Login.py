@@ -24,5 +24,5 @@ class testLogin(unittest.TestCase):
 
 if __name__ == '__main__':
 	print "\n\n\033[1;32;40mtest_Login : \n\n\033[1;32;m"
-	print "Verify if the user can login on this homeserver."
+	print "Verify if the user can login on this homeserver.\n\n"
 	unittest.main()

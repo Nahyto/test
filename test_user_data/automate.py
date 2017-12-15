@@ -32,15 +32,12 @@ def run_bash_command(listArguments):
 				return 0
 
 			else:
-				listArguments[2] = ["test_Version.py","test_Login.py","test_Logout.py","test_Login.py","test_Deactivate.py"]
+				listArguments[2] = ["test_Version.py","test_Register.py","test_Login.py","test_Logout.py","test_Login.py","test_Deactivate.py"]
 				
 				for test in listArguments[2]:
 			
 					if attribut_file.exists():
-                       				print listArguments[0]
-						print listArguments[3]
-						print listArguments[4]
-						subprocess.call("python attribute.py %s %s %s %s " %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
+						subprocess.call("python %s %s %s %s " %(test,listArguments[0],listArguments[3],listArguments[4]),shell=True)
 
 					else:
 						print "\n\033[1;32;31mThe file \033[1;32;33m\"attribute.py\"\033[1;32;31m is needed for the automate, check if he is in the directory with the others tests !"
