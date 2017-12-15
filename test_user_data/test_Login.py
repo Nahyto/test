@@ -5,7 +5,6 @@ import urllib3
 import unittest
 import sys
 import subprocess
-imp
 from attribute import *
 
 class testLogin(unittest.TestCase):
@@ -16,7 +15,7 @@ class testLogin(unittest.TestCase):
 		
 		self.assertEquals(200,requestLogin.status_code)
 
-		fileAccessToken = file.open("AccessToken.txt","w")
+		fileAccessToken = open("AccessToken.txt","w")
 		body = (requestLogin.text).split("\"")
 		fileAccessToken.write(body[3])
 		fileAccessToken.write("\n")
