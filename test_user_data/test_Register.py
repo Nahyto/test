@@ -18,7 +18,7 @@ class testRegister(unittest.TestCase):
 		requestRegisterEmail = requests.post('%sclient/r0/register/email/requestToken' %getAddr(), headers=getHeader(), data=dataRegisterEmail)
 
 		if getVerbose() == '1':
-			print "\nResponse server :\n%s\n" %requestRegisterEmail.text
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestRegisterEmail.text
 
 		self.assertEquals(200,requestRegisterEmail.status_code)
 
@@ -43,7 +43,7 @@ class testRegister(unittest.TestCase):
 		requestValidate = requests.post('%sidentity/api/v1/validate/email/submitToken' %getAddr(), params=params)
 
 		if getVerbose() == '1':
-			print "\nResponse server :\n%s\n" %requestValidate.text
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestValidate.text
 
 		self.assertIn("true",requestValidate.text)
 
@@ -56,7 +56,7 @@ class testRegister(unittest.TestCase):
 		requestRegisterUser = requests.post('%sclient/r0/register' %getAddr(), headers=getHeader(), data=dataRegisterUser, verify=True)
 		
 		if getVerbose() == '1':
-			print "\nResponse server :\n%s\n" %requestRegisterUser.text
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestRegisterUser.text
 
 		self.assertEquals(200,requestRegisterUser.status_code)
 		

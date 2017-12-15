@@ -15,6 +15,10 @@ class testDesactivate(unittest.TestCase):
 
 		dataDeactivate = '{"auth": {"user":"%s","password":"Devinemoi_01","session":"bidule","type": "m.login.password"}}' %getUsername()
 		requestDeactivate = requests.post('%sclient/r0/account/deactivate' %getAddr(), headers=getHeader(), params=params, data=dataDeactivate, verify=True)
+
+		if getVerbose() == '1':
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestDeactivate.text
+
 		self.assertEquals(200,requestDeactivate.status_code)
 		
 

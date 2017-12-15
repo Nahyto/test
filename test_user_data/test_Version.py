@@ -13,8 +13,9 @@ class testVersion(unittest.TestCase):
 		r = requests.get('%sclient/versions' %getAddr(), verify=True)
 		self.assertIn(version,r.text)
 		self.assertEquals(200,r.status_code)
-		if my_args[1] == '1':
-			print "\nResponse server :\n%s\n" %r.text
+
+		if getVerbose() == '1':
+			print "\nResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %r.text
 
 if __name__ == '__main__':
 	print "\n\033[1;32;40mtest_Version: \033[1;32;m\n"
