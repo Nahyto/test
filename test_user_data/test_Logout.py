@@ -4,37 +4,18 @@ import requests
 import urllib3
 import sys
 import unittest
-
-my_args = sys.argv[1:]
-del sys.argv[1:]
+from attribute import *
 
 class testLogout(unittest.TestCase):
 
 	def test_Logout(self):
-		verbose = ""
-		email = ""
-		domain = ""
-		infra = ""
-		if len(my_args) == 3:
-			verbose = my_args[1]
-			email = my_args[0]
-			domain = my_args[2]
-
-		elif len(my_args) == 2:
-			email = my_args[0]
-			domain = my_args[1]
-		username = email.split("@")[0]
-
-		fileData = open("fileAccessToken.txt","r")
-		catFileData = fileData.read()
-		access_token = catFileData.split("\n")[0]
-
+		user_id = "@%s:%s" %(getUsername(),getDomain())
+		access_token = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org \"docker exec -ti bdd-container psql synapse --command 'SELECT token FROM access_tokens WHERE user_id = %s;'\" " %(getInfra(),user_id))
 		params = (
     			('access_token', access_token),
 		)
 
-		addr = 'https://%s/_matrix/client/' %domain
-		requestLogout = requests.post('%sr0/logout' %addr, params=params, verify=True)
+		requestLogout = requests.post('%sclient/r0/logout' %getAddr(), params=params, verify=True)
 		self.assertEquals(200,requestLogout.status_code)
 		print "\ntest_Logout: \n\nVerify if the user can Logout from this homeserver."
 
