@@ -11,7 +11,7 @@ class testLogout(unittest.TestCase):
 	def test_Logout(self):
 		user_id = "@%s:%s" %(getUsername(),getDomain())
 		docker = "docker exec -t bdd-container psql synapse --command \"SELECT token FROM access_tokens WHERE user_id = '%s';\" " %user_id
-		access_token = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org  " %docker,shell=True)
+		access_token = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-%s.tcs-citadeldev.cloud-omc.org  %s" %(getInfra(),docker),shell=True)
 		params = (
     			('access_token', access_token),
 		)
