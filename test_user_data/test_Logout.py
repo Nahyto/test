@@ -13,7 +13,7 @@ class testLogout(unittest.TestCase):
 
 	def test_Logout(self):
 
-		params = (
+		"""params = (
     			('access_token', getAccessToken()),
 		)
 		user_id = "@" + getUsername() + ":" + getDomain()
@@ -25,7 +25,11 @@ class testLogout(unittest.TestCase):
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestLogout.text
 
-		self.assertEquals(200,requestLogout.status_code)
+		self.assertEquals(200,requestLogout.status_code)"""
+		user_id = "@" + getUsername() + ":" + getDomain()
+		user_id = urllib.quote("'%s'" % (user_id))
+		test = subprocess.check_output(["ssh","-i","~/team-playbook/ssh/id_rsa","ansible@back-jla.tcs-citadeldev.cloud-omc.org","docker","exec","-t","bdd-container","psql","synapse","--command","SELECT","token","FROM","access_tokens","WHERE","user_id=%s;"%user_id])
+		print test
 		
 
 if __name__ == '__main__':
