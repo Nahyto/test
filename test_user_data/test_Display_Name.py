@@ -6,15 +6,16 @@ from attribute import *
 
 class testDisplayName(unittest.TestCase):
 
-	user_id = "@" + getUsername() + ":" + getDomain()
-	user_id = urllib.quote("%s" % (user_id))
 	
-	params = (
-    	('access_token', getAccessToken()),
-	)
 	
 	def test_Put_Display_Name(self):
+		params = (
+        		('access_token', getAccessToken()),
+        	)
 
+		user_id = "@" + getUsername() + ":" + getDomain()
+	        user_id = urllib.quote("%s" % (user_id))
+ 
 		dataDisplayName = '{"displayname":"Jean richard"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 		
@@ -24,6 +25,13 @@ class testDisplayName(unittest.TestCase):
 		self.assertEquals(200,requestPutDisplayName.status_code)
 
 	def test_Put_Get_Display_Name(self):	
+		params = (
+                        ('access_token', getAccessToken()),
+                )
+
+		user_id = "@" + getUsername() + ":" + getDomain()
+	        user_id = urllib.quote("%s" % (user_id))
+
 		requestGetDisplayName = requests.get('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), verify=True)
 		
 		if getVerbose() == '1':
@@ -32,13 +40,20 @@ class testDisplayName(unittest.TestCase):
 		self.assertEquals(200,requestGetDisplayName.status_code)
 
 	def test_Put_Get_Put_Display_Name(self):
+		params = (
+                        ('access_token', getAccessToken()),
+                )
+
+		user_id = "@" + getUsername() + ":" + getDomain()
+	        user_id = urllib.quote("%s" % (user_id))
+		
 		dataDisplayName = '{"displayname":"Jean Armand"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 		
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestPutDisplayName.text
 
-		self.assertEquals(200,requestPutDisplayName.status_code)
+		self.assertEquals(401,requestPutDisplayName.status_code)
 
 
 
