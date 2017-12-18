@@ -6,14 +6,14 @@ from attribute import *
 
 class testDisplayName(unittest.TestCase):
 
-	def test_Display_Name(self):
-
-		user_id = "@" + getUsername() + ":" + getDomain()
-		user_id = urllib.quote("%s" % (user_id))
-
-		params = (
-    		('access_token', getAccessToken()),
-		)
+	user_id = "@" + getUsername() + ":" + getDomain()
+	user_id = urllib.quote("%s" % (user_id))
+	
+	params = (
+    	('access_token', getAccessToken()),
+	)
+	
+	def test_Put_Display_Name(self):
 
 		dataDisplayName = '{"displayname":"Jean richard"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
@@ -23,6 +23,7 @@ class testDisplayName(unittest.TestCase):
 		
 		self.assertEquals(200,requestPutDisplayName.status_code)
 
+	def test_Put_Get_Display_Name(self):	
 		requestGetDisplayName = requests.get('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), verify=True)
 		
 		if getVerbose() == '1':
@@ -30,6 +31,7 @@ class testDisplayName(unittest.TestCase):
 		
 		self.assertEquals(200,requestGetDisplayName.status_code)
 
+	def test_Put_Get_Put_Display_Name(self):
 		dataDisplayName = '{"displayname":"Jean Armand"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 		
