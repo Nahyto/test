@@ -2,6 +2,7 @@ import random
 import string
 import requests
 import urllib3
+import urllib
 import sys
 import unittest
 import os
@@ -17,7 +18,7 @@ class testLogout(unittest.TestCase):
 		)
 		user_id = "@" + getUsername() + ":" + getDomain()
 		user_id = urllib.quote("'%s'" % (term))
-		test = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org \"docker exec -t bdd-container psql synapse --command 'SELECT token FROM access_tokens WHERE user_id = ;'\"")
+		test = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org \"docker exec -t bdd-container psql synapse --command 'SELECT token FROM access_tokens WHERE user_id = %s;'\"" %user_id,shell=True)
 		print test
 		requestLogout = requests.post('%sclient/r0/logout' %getAddr(), params=params, verify=True)
 
