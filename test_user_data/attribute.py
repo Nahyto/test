@@ -54,7 +54,8 @@ def instantiateList(listInitVar):
 	listInitVar[3] = (listInitVar[2].split(".")[0]).split("-")[0]
 	listInitVar[4] = listInitVar[1].split("@")[0]
 	listInitVar[5] = 'https://%s/_matrix/' %listInitVar[2]
-
+	listInitVar[7] = "@%s:%s" %(listInitVar[4],listInitVar[2])
+	
 	return listInitVar 
 
 listArguments = instantiateList(initList())
