@@ -5,12 +5,14 @@ import urllib3
 import unittest
 import sys
 import subprocess
+import getpass
 from attribute import *
 
 class testLogin(unittest.TestCase):
 
 	def test_Login(self):
-		dataLogin = '{"type":"m.login.password","user":"%s","password":"Devinemoi_01"}' % getUsername()
+		pwd = getpass.getpass("Write your password : ")
+		dataLogin = '{"type":"m.login.password","user":"%s","password":pwd}' % getUsername()
 		requestLogin = requests.post('%sclient/r0/login' %getAddr(), data=dataLogin, verify=True)
 		
 		if getVerbose() == '1':
