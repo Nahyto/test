@@ -15,7 +15,9 @@ class testLogout(unittest.TestCase):
 		params = (
     			('access_token', getAccessToken()),
 		)
-		test = subprocess.check_output("""ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org "docker exec -t bdd-container psql synapse --command \"SELECT token FROM access_tokens WHERE user_id = '@something:jla-test.citadel.team';\" " """)
+		user_id = "@" + getUsername() + ":" + getDomain()
+		user_id = urllib.quote("'%s'" % (term))
+		test = subprocess.check_output("ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org \"docker exec -t bdd-container psql synapse --command 'SELECT token FROM access_tokens WHERE user_id = ;'\"")
 		print test
 		requestLogout = requests.post('%sclient/r0/logout' %getAddr(), params=params, verify=True)
 
