@@ -5,6 +5,7 @@ import urllib3
 import sys
 import unittest
 import os
+import subprocess
 from attribute import *
 
 class testLogout(unittest.TestCase):
@@ -14,7 +15,8 @@ class testLogout(unittest.TestCase):
 		params = (
     			('access_token', getAccessToken()),
 		)
-
+		test = subprocess.check_output("""ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org "docker exec -t bdd-container psql synapse --command \"SELECT token FROM access_tokens WHERE user_id = '@something:jla-test.citadel.team';\" " """)
+		print test
 		requestLogout = requests.post('%sclient/r0/logout' %getAddr(), params=params, verify=True)
 
 		if getVerbose() == '1':
