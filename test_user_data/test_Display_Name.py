@@ -1,5 +1,6 @@
 import requests
 import urllib3
+import urllib
 import unittest
 from attribute import *
 
@@ -16,13 +17,25 @@ class testDisplayName(unittest.TestCase):
 
 		dataDisplayName = '{"displayname":"Jean richard"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
+		
+		if getVerbose() == '1':
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestPutDisplayName.text
+		
 		self.assertEquals(200,requestPutDisplayName.status_code)
 
 		requestGetDisplayName = requests.get('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), verify=True)
+		
+		if getVerbose() == '1':
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestGetDisplayName.text
+		
 		self.assertEquals(200,requestGetDisplayName.status_code)
 
 		dataDisplayName = '{"displayname":"Jean Armand"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
+		
+		if getVerbose() == '1':
+			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestPutDisplayName.text
+
 		self.assertEquals(200,requestPutDisplayName.status_code)
 
 
