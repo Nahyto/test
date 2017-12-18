@@ -10,7 +10,6 @@ class testProfile(unittest.TestCase):
 		
 		user_id = "@" + getUsername() + ":" + getDomain()
 		user_id = urllib.quote("%s" % (user_id))
-		print user_id
 		requestProfile = requests.get('%sclient/r0/profile/%s' %(getAddr(),user_id), verify=True)
 		
 		if getVerbose() == '1':
