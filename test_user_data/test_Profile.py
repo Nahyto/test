@@ -1,14 +1,13 @@
 import requests
 import urllib3
 import unittest
-from test_Register import getAccesToken,getUserID
-from attribute import getUsername,getAddr
+from attribute import *
 
 class testProfile(unittest.TestCase):
 
 	def test_Profile(self):
 
-		requestProfile = requests.get('%sr0/profile/%s' %(getAddr(),getUserID()), verify=False)
+		requestProfile = requests.get('%sclient/r0/profile/%s' %(getAddr(),getUserID()), verify=False)
 		self.assertEquals(200,requestProfile.status_code)
 		print "\ntest_Profile : \n Get the combined profile information for this user."
 
