@@ -12,7 +12,7 @@ class testLogin(unittest.TestCase):
 
 	def test_Login(self):
 		pwd = getpass.getpass("Write your password : ")
-		dataLogin = '{"type":"m.login.password","user":"%s","password":pwd}' % getUsername()
+		dataLogin = '{"type":"m.login.password","user":"%s","password":"%s"}' %(getUsername(),pwd)
 		requestLogin = requests.post('%sclient/r0/login' %getAddr(), data=dataLogin, verify=True)
 		
 		if getVerbose() == '1':

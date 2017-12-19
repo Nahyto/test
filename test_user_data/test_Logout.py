@@ -14,7 +14,7 @@ class testLogout(unittest.TestCase):
 		params = (
     			('access_token', getAccessToken()),
 		)
-
+		
 		requestLogout = requests.post('%sclient/r0/logout' %getAddr(), params=params, verify=True)
 
 		if getVerbose() == '1':
