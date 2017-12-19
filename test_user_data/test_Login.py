@@ -12,7 +12,8 @@ class testLogin(unittest.TestCase):
 
 	def test_Login(self):
 		lock = 1
-
+		pwd = ""
+		
 		while lock:
 			pwd = getpass.getpass("Write your password : ")
 
@@ -32,8 +33,17 @@ class testLogin(unittest.TestCase):
 			print "\n\033[32;31mInvalid Email or Password !\n\033[32;m"
 			self.assertEquals(403,requestLogin.status_code)
 
-		else:
+		elif "Bad login" in requestLogin.text:
+			print "\n\033[32;31mBad Login !\n\033[32;m"
+			self.assertEquals(403,requestLogin.status_code)
+
+		elif requestLogin.status_code == 200:
+			print "\n\n\033[32;40mSuccess !\n\033[32;m"
 			self.assertEquals(200,requestLogin.status_code)
+
+		else:
+			print "\n\033[32;31mRequest rate-limited !\n\033[32;m"
+			self.assertEquals(429,requestLogin.status_code)
 
 
 if __name__ == '__main__':

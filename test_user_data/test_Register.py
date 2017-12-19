@@ -20,8 +20,16 @@ class testRegister(unittest.TestCase):
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestRegisterEmail.text
 
-		self.assertEquals(200,requestRegisterEmail.status_code)
+		if "M_THREEPID_IN_USE" in requestRegisterEmail.text:
+			print "\n\033[32;31mEmail already used !\n\033[32;m"
+			self.assertEquals(400,requestRegisterEmail.status_code)
 
+		elif "M_SERVER_NOT_TRUSTED" in requestRegisterEmail.text:
+			print "\n\033[32;31mThe homeserver doesn't trust this server !\n\033[32;m"
+			self.assertEquals(400,requestRegisterEmail.status_code)
+		else
+			print "\n\n\033[32;40mSuccess !\n\033[32;m"
+			self.assertEquals(200,requestRegisterEmail.status_code)
 
 		
 	def test_Submit_Token(self):
@@ -45,7 +53,13 @@ class testRegister(unittest.TestCase):
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestValidate.text
 
-		self.assertIn("true",requestValidate.text)
+		if "true" in requestValidate.text:
+			print "\n\n\033[32;40mSuccess !\n\033[32;m" 
+			self.assertIn("true",requestValidate.text)
+		
+		else:
+			print "\n\033[32;31mSomething goes wrong with the validation...\n\033[32;m"
+			self.assertIn("false",requestValidate.text)
 
 
 
@@ -58,7 +72,29 @@ class testRegister(unittest.TestCase):
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\033[1;32;m" %requestRegisterUser.text
 
-		self.assertEquals(200,requestRegisterUser.status_code)
+		if "M_USER_IN_USE" in requestRegisterUser.text:
+			print "\n\033[32;31mUsername already used !\n\033[32;m"
+			self.assertEquals(400,requestRegisterUser.status_code)
+
+		elif "M_INVALID_USERNAME" in requestRegisterUser.text:
+			print "\n\033[32;31mYour username is invalid !\n\033[32;m"
+			self.assertEquals(400,requestRegisterUser.status_code)
+
+		elif "M_EXCLUSIVE" in requestRegisterUser.text:
+			print "\n\033[32;31mUsername has an invalid syntax !\n\033[32;m"
+			self.assertEquals(400,requestRegisterUser.status_code)
+
+		elif "flows" in requestRegisterUser.text:
+			print "\n\033[32;31mThe registration needs more informations !\n\033[32;m"
+			self.assertEquals(401,requestRegisterUser.status_code)
+
+		elif requestRegisterUser.status_code == 200:
+			print "\n\n\033[32;40mSuccess !\n\033[32;m"
+			self.assertEquals(200,requestRegisterUser.status_code)
+
+		else:
+			print "\n\033[32;31mRequest rate-limited !\n\033[32;m"
+			self.assertEquals(429,requestRegisterUser.status_code)
 		
 		
 
@@ -68,9 +104,9 @@ class testRegister(unittest.TestCase):
 
 
 if __name__ == '__main__':
-	print "\n\033[1;32;40mtest_Register :\033[1;32;m \n"
+	print "\n\033[32;40mtest_Register :\033[32;m \n"
 	print "Register for an account on this homeserver."
 	print "There are two kinds of user account:"
-	print "\033[1;32;33m    -user accounts.\033[1;32;m These accounts may use the full API described in this specification. "
-	print "\033[1;32;33m    -guest accounts.\033[1;32;m These accounts may have limited permissions and may not be supported by all servers.\n\n"
+	print "\033[32;33m    -user accounts.\033[32;m These accounts may use the full API described in this specification. "
+	print "\033[32;33m    -guest accounts.\033[32;m These accounts may have limited permissions and may not be supported by all servers.\n\n"
 	unittest.main()
