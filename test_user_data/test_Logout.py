@@ -21,7 +21,7 @@ class testLogout(unittest.TestCase):
 			print "\n\033[32;40mResponse server :\033[1;32;36m\n%s\n\n\033[32;m" %requestLogout.text
 
 		if "No row found" in requestLogout.text:
-			print "\n\033[32;31mThis email has no \033[32;33maccess_token\033[32;m, verify if he's registered and logged in !\n\033[32;m"
+			print "\n\033[32;31mThis email has no \033[32;33maccess_token\033[32;31m, verify if he's registered and logged in !\n\033[32;m"
 			self.assertEquals(404,requestLogout.status_code)
 		else:
 			print "\n\n\033[32;40mSuccess !\n\033[32;m"

@@ -27,7 +27,7 @@ class testRegister(unittest.TestCase):
 		elif "M_SERVER_NOT_TRUSTED" in requestRegisterEmail.text:
 			print "\n\033[32;31mThe homeserver doesn't trust this server !\n\033[32;m"
 			self.assertEquals(400,requestRegisterEmail.status_code)
-		else
+		else:
 			print "\n\n\033[32;40mSuccess !\n\033[32;m"
 			self.assertEquals(200,requestRegisterEmail.status_code)
 

@@ -2,6 +2,7 @@ import requests
 import urllib3
 import unittest
 import sys
+import getpass
 from attribute import *
 
 
@@ -31,10 +32,10 @@ class testDesactivate(unittest.TestCase):
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestDeactivate.text
 
 		
-		if "flows" in requestRegisterUser.text:
+		if "flows" in requestDeactivate.text:
 			print "\n\033[32;31mThe registration needs more informations !\n\033[32;m"
 			self.assertEquals(401,requestDeactivate.status_code)
-		elif requestRegisterUser.status_code == 200:
+		elif requestDeactivate.status_code == 200:
 			print "\n\n\033[32;40mSuccess !\n\033[32;m"
 			self.assertEquals(200,requestDeactivate.status_code)
 
