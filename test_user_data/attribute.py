@@ -21,12 +21,6 @@ def initList():
  	'Content-Type': 'application/json',
  	'Accept': 'application/json',
 	}
-	fileAccessToken = Path("./AccessToken.txt")
-	
-	if fileAccessToken.exists():
-		fileData = open("AccessToken.txt","r")
-		catFileData = fileData.read()
-		access_token = catFileData.split("\n")[0]
 
 	listInitVar.append(verbose)
 	listInitVar.append(email)
@@ -55,6 +49,7 @@ def instantiateList(listInitVar):
 	listInitVar[4] = listInitVar[1].split("@")[0]
 	listInitVar[5] = 'https://%s/_matrix/' %listInitVar[2]
 	listInitVar[7] = "@%s:%s" %(listInitVar[4],listInitVar[2])
+	listInitVar[8] = subprocess.check_output("./access_token.sh %s" %listInitVar[7])
 	
 	return listInitVar 
 

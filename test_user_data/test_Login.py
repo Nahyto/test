@@ -20,13 +20,6 @@ class testLogin(unittest.TestCase):
 
 		self.assertEquals(200,requestLogin.status_code)
 
-		fileAccessToken = open("AccessToken.txt","w")
-		body = (requestLogin.text).split("\"")
-		fileAccessToken.write(body[3])
-		fileAccessToken.write("\n")
-		fileAccessToken.close()
-		
-
 
 if __name__ == '__main__':
 	print "\n\n\033[1;32;40mtest_Login : \n\n\033[1;32;m"
