@@ -1,8 +1,3 @@
-data=$(ssh -i ~/team-playbook/ssh/id_rsa ansible@back-jla.tcs-citadeldev.cloud-omc.org "docker exec -t bdd-container psql synapse --command \"SELECT token FROM access_tokens WHERE user_id='$1';\"")
-
-if [ $data = null ]; then
-	echo "NOK"
->> /dev/null
-else
-	echo $data
-fi
+#!/bin/bash
+USERID=$1
+docker exec -i bdd-container /bin/bash -c 'psql synapse -t -c "select token from access_tokens where user_id = "'"\'$USERID\'"'" order by id desc limit 1;"';
