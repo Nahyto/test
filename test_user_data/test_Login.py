@@ -28,8 +28,8 @@ class testLogin(unittest.TestCase):
 		if getVerbose() == '1':
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestLogin.text
 
-		if self.assertIn("Invalid password",requestLogin.text):
-			print "\n\033[32;31mInvalid password !\n\033[32;m"
+		if "Invalid password" in requestLogin.text:
+			print "\n\033[32;31mInvalid Email or Password !\n\033[32;m"
 			self.assertEquals(403,requestLogin.status_code)
 
 		else:

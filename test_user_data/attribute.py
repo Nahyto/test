@@ -50,7 +50,7 @@ def instantiateList(listInitVar):
 	listInitVar[5] = 'https://%s/_matrix/' %listInitVar[2]
 	listInitVar[7] = "@%s:%s" %(listInitVar[4],listInitVar[2])
 	
-	if listInitVar[3] != null and listInitVar[7] != '@:':
+	if listInitVar[3] != "" and listInitVar[7] != '@:':
 		
 		try:
 			listInitVar[8] = subprocess.check_output("./access_token.sh '%s' '%s'" %(listInitVar[7],listInitVar[3]),shell=True).strip()
