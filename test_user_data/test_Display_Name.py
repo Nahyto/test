@@ -26,7 +26,7 @@ class testDisplayName(unittest.TestCase):
 			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestPutDisplayName.text
 		
 		if requestPutDisplayName.status_code == 200:
-			print "\n\n\033[32;40mSuccess !\n\033[32;m"
+			print "\n\n\033[32;40mYour display_name changed successfully !\n\033[32;m"
 			self.assertEquals(200,requestPutDisplayName.status_code)
 
 		elif requestPutDisplayName.status_code == 401:
@@ -53,7 +53,6 @@ class testDisplayName(unittest.TestCase):
 			self.assertEquals(404,requestGetDisplayName.status_code)
 
 		else:
-			print "\n\n\033[32;40mSuccess !\n\033[32;m"
 			self.assertEquals(200,requestGetDisplayName.status_code)
 
 
