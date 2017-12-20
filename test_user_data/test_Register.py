@@ -11,6 +11,7 @@ class testRegister(unittest.TestCase):
 
 
 	def test_Request_Token(self):
+		print "Send the request token at the email your write."
 		global requestRegisterEmail
 
 		dataRegisterEmail = '{"client_secret":"abcd","id_server":"%s","send_attempt":"1","email":"%s","next_link":""}' %(getDomain(),getEmail())
@@ -33,6 +34,7 @@ class testRegister(unittest.TestCase):
 
 		
 	def test_Submit_Token(self):
+		print "Submit the request token at the server."
 		global sid
 
 		bodyEmail = (requestRegisterEmail.text).split('"')
@@ -65,7 +67,8 @@ class testRegister(unittest.TestCase):
 
 
 	def test_User_Register(self):
-
+		print "Register the user with the email."
+		
 		dataRegisterUser = '{"auth": {"type": "m.login.email.identity","threepid_creds":{"id_server": "%s","sid": "%s","client_secret": "abcd"}},"bind_email": true,"password": "Devinemoi_01","username": "%s"}' %(getDomain(),sid,getUsername())
 		requestRegisterUser = requests.post('%sclient/r0/register' %getAddr(), headers=getHeader(), data=dataRegisterUser, verify=True)
 		

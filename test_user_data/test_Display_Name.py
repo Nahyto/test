@@ -9,6 +9,8 @@ class testDisplayName(unittest.TestCase):
 	
 	
 	def test_Put_Display_Name(self):
+		print "Put a new display_name for the user."
+
 		global user_id
 		global params
 
@@ -42,6 +44,7 @@ class testDisplayName(unittest.TestCase):
 
 
 	def test_Put_Get_Display_Name(self):
+		print "Display the new display_name, to see if the registration has been successful."
 
 		requestGetDisplayName = requests.get('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), verify=True)
 		
@@ -59,7 +62,8 @@ class testDisplayName(unittest.TestCase):
 
 
 	def test_Put_Get_Put_Display_Name(self):
-		
+		print "Change the display_name."
+
 		dataDisplayName = '{"displayname":"Jean Armand"}'
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 		
@@ -82,6 +86,7 @@ class testDisplayName(unittest.TestCase):
 
 	
 	def test_User_Change_Display_Name_Guest(self):
+		print "Try to change the display_name of an other guest as a guest."
 
 		user = raw_input("Write the Username of the guest you wanted to change his display_name : ")
    		user_id = "@" + user + ":" + getDomain()
@@ -109,7 +114,8 @@ class testDisplayName(unittest.TestCase):
 
 	
 	def test_User_Change_Display_Name_Admin(self):
-        
+        	print "Try to change the display_name of an Admin as a guest."
+
         	dataDisplayName = '{"displayname":"Jean Armand"}'
         	requestPutDisplayName = requests.put('https://%s:8443/_matrix/adminhs/r0/profiledspn/%s' %(getDomain(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 

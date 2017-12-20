@@ -9,6 +9,8 @@ class testDisplayNameAdmin(unittest.TestCase):
 	
 	
 	def test_Put_Display_Name_Admin(self):
+		print "Put a new display_name for the user."
+
 		global params
 		global user_id
 
@@ -22,7 +24,7 @@ class testDisplayNameAdmin(unittest.TestCase):
 		requestPutDisplayName = requests.put('https://%s:8443/_matrix/adminhs/r0/profiledspn/%s' %(getDomain(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 		
 		if getVerbose() == '1':
-			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestPutDisplayName.text
+			print "\n\033[32;40mResponse server :\033[32;36m\n%s\n\n\033[32;m" %requestPutDisplayName.text
 		
 		if requestPutDisplayName.status_code == 200:
 			print "\n\n\033[32;40mYour display_name changed successfully !\n\033[32;m"
@@ -40,11 +42,12 @@ class testDisplayNameAdmin(unittest.TestCase):
 
 
 	def test_Put_Get_Display_Name_Admin(self):	
+		print "Display the new display_name, to see if the registration has been successful."
 
 		requestGetDisplayName = requests.get('https://%s:8443/_matrix/adminhs/r0/profiledspn/%s' %(getDomain(),user_id), verify=True)
 		
 		if getVerbose() == '1':
-			print "\n\033[1;32;40mResponse server :\033[1;32;36m\n%s\n\n\033[1;32;m" %requestGetDisplayName.text
+			print "\n\033[32;40mResponse server :\033[32;36m\n%s\n\n\033[32;m" %requestGetDisplayName.text
 		
 		if requestGetDisplayName.status_code == 404:
 			print "\n\033[32;31mThere is no display name for this user or this user does not exist !\n\033[32;m"
@@ -57,6 +60,7 @@ class testDisplayNameAdmin(unittest.TestCase):
 
 
 	def test_Put_Get_Put_Display_Name_Admin(self):
+		print "Change the display_name."
 
 		dataDisplayName = '{"displayname":"Jean Armand"}'
 		requestPutDisplayName = requests.put('https://%s:8443/_matrix/adminhs/r0/profiledspn/%s' %(getDomain(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
@@ -80,6 +84,7 @@ class testDisplayNameAdmin(unittest.TestCase):
 
 
 	def test_Put_Get_Put_Get_Display_Name_Admin(self):	
+		print "Display the new display_name, to see if the changes has been successful."
 
 		requestGetDisplayName = requests.get('https://%s:8443/_matrix/adminhs/r0/profiledspn/%s' %(getDomain(),user_id), verify=True)
 		
@@ -96,6 +101,7 @@ class testDisplayNameAdmin(unittest.TestCase):
 	
 
 	def test_User_Change_Display_Name_Guest(self):
+		print "Try to change the display_name of an other guest as a guest."
 
 		user = raw_input("Write the Username of the guest you wanted to change his display_name : ")
 		user_id = "@" + user + ":" + getDomain()
@@ -124,6 +130,7 @@ class testDisplayNameAdmin(unittest.TestCase):
 		
 
 
+		print "Try to change the display_name of an other guest as a Admin."
 
 		requestPutDisplayName = requests.put('%sclient/r0/profile/%s/displayname' %(getAddr(),user_id), headers=getHeader(), params=params,data=dataDisplayName, verify=True)
 
